@@ -1,5 +1,5 @@
 name: Hello World Personalizzato
-run-name: "${{ github.actor }} sta testando GitHub Actions 🚀"
+run-name: ${{ github.actor }} sta testando GitHub Actions 
 on: [push]
 
 jobs:
@@ -14,9 +14,14 @@ jobs:
           echo "Repository: ${{ github.repository }}"
           echo "SHA: ${{ github.sha }}"
           echo "URL: ${{ github.repositoryUrl }}"
-          echo "Data e ora: $(date)"
+          echo "Actor: ${{ github.actor }}"
+          echo "Commit message: ${{ github.event.head_commit.message }}"
+          echo "Author: ${{ github.event.head_commit.author.name }}"
+          echo "Workflow: ${{ github.workflow }}"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "Date/Time: $(date)"
       
       - name: List modified files
         run: |
-          echo "File modificati nell'ultimo commit:"
-          git show --name-only --pretty=format:
+          echo "Modified files in the last commit:"
+          git show --name-only --pretty=format: HEAD | sed '/^$/d'
